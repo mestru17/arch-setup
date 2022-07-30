@@ -1,0 +1,10 @@
+man-db
+man-pages
+texinfo
+base-devel
+neovim
+bat
+exa
+fd
+git
+ripgrep
