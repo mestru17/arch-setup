@@ -1,1 +1,1 @@
-#arch-setup
+# arch-setup
