@@ -8,3 +8,4 @@ exa
 fd
 git
 ripgrep
+openssh
