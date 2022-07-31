@@ -96,13 +96,23 @@ install() {
 }
 
 install_yay() {
+	rm -rf yay
 	git clone https://aur.archlinux.org/yay.git
 	cd yay
 	makepkg -si
 }
 
+install_dwm() {
+	rm -rf dwm
+	git clone git://git.suckless.org/dwm
+	cd dwm
+	sudo make clean install
+	make clean
+}
+
 print_header "Installing other packages"
 install yay
+install dwm
 
 #########################
 # Print success message #
