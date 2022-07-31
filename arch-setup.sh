@@ -6,9 +6,9 @@ if [[ $EUID < 1 ]]; then
 	exit 1
 fi
 
-######################
-# Define color utils #
-######################
+################
+# Define utils #
+################
 bold=$(tput bold)
 underline=$(tput sgr 0 1)
 reset=$(tput sgr0)
@@ -47,12 +47,29 @@ print_note() {
 	printf "${underline}${bold}${blue}Note:${reset}  ${blue}%s${reset}\n" "$@"
 }
 
+confirm() {
+	printf "\n${bold}$@${reset}"
+	read -p " (y/n) " -n 1 -r
+	echo # move to a new line after read
+	[[ $REPLY =~ ^[Yy]$ ]]
+}
+
+########################
+# Print driver warning #
+########################
+print_warning "Warning: This script requires that you have already installed Xorg drivers for your hardware."
+if ! confirm "Have you installed the Xorg drivers?"; then
+	print_underline "Please install the Xorg driver(s) before running this script again."
+	print_underline "Visit https://wiki.archlinux.org/title/Xorg for more information."
+	exit
+fi
+
 #########################
 # Set up error handling #
 #########################
 on_error_exit() {
 	local command=$BASH_COMMAND
-	print_error "Error: Failed to run $command"
+	print_error "Error: Failed to run $command."
 }
 
 set -eo pipefail
@@ -86,3 +103,8 @@ install_yay() {
 
 print_header "Installing other packages"
 install yay
+
+#########################
+# Print success message #
+#########################
+print_success "Successfully ran $0."
