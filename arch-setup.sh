@@ -28,7 +28,7 @@ print_success() {
 }
 
 print_warning() {
-	printf "${yellow}➜ %s${reset}\n" "$@"
+	printf "${yellow} %s${reset}\n" "$@"
 }
 
 print_error() {
