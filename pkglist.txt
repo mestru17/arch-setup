@@ -13,3 +13,4 @@ xorg-server
 xorg-apps
 lightdm
 lightdm-gtk-greeter
+alacritty

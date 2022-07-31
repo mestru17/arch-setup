@@ -103,6 +103,7 @@ install_yay() {
 }
 
 install_dwm() {
+	# TODO: Use my own config instead. This default one can't even launch a terminal because it depends on st.
 	rm -rf dwm
 	git clone git://git.suckless.org/dwm
 	cd dwm
@@ -123,6 +124,8 @@ install dwm
 # Install config files #
 ########################
 print_header "Configuring programs"
+
+# TODO: Some directories might not exist when copying like this. Need to find a better way to do this.
 sudo cp -r root/* /
 print_success "Installed system level config files."
 
