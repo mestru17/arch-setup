@@ -69,11 +69,11 @@ fi
 #########################
 on_error_exit() {
 	local command=$BASH_COMMAND
-	print_error "Error: Failed to run $command."
+	print_error "Error: Failed to run '$command' on line $(caller)"
 }
 
-set -eo pipefail
-trap on_error_exit ERR
+set -eEo pipefail
+trap "on_error_exit $LINENO" ERR
 
 ####################
 # Install packages #
@@ -108,13 +108,42 @@ install_dwm() {
 	cd dwm
 	sudo make clean install
 	make clean
+
+	# Install logo
+	local icon_dir="$HOME/.icons"
+	mkdir -p "$icon_dir"
+	cp dwm.png "$icon_dir/dwm.png"
 }
 
 print_header "Installing other packages"
 install yay
 install dwm
 
+########################
+# Install config files #
+########################
+print_header "Configuring programs"
+sudo cp -r root/* /
+print_success "Installed system level config files."
+
+###################
+# Enable services #
+###################
+enable_service() {
+	local service=$1
+	if systemctl is-enabled "$service" 1> /dev/null; then
+		print_warning "Warning: $service is already enabled -- skipping."
+	else
+		sudo systemctl enable "$service"
+		print_success "Enabled $service"
+	fi
+}
+
+print_header "Enabling services"
+enable_service lightdm.service
+
 #########################
 # Print success message #
 #########################
+echo
 print_success "Successfully ran $0."

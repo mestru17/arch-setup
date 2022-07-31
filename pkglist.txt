@@ -11,3 +11,5 @@ ripgrep
 openssh
 xorg-server
 xorg-apps
+lightdm
+lightdm-gtk-greeter
