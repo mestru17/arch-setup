@@ -121,6 +121,12 @@ install yay
 install dwm
 
 ########################
+# Install AUR packages #
+########################
+print_header "Installing AUR packages"
+yay -S --needed - < pkglist_aur.txt
+
+########################
 # Install config files #
 ########################
 print_header "Configuring programs"
