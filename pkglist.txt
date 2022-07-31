@@ -9,3 +9,5 @@ fd
 git
 ripgrep
 openssh
+xorg-server
+xorg-apps
