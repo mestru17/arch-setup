@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=dwm
+Comment=Log in using the dwm window manager
+Exec=/usr/local/bin/dwm
+TryExec=/usr/local/bin/dwm
+Icon=dwm.png
+Type=Application
