@@ -155,7 +155,7 @@ enable_service lightdm.service
 # Set wallpaper #
 #################
 print_header "Setting wallpaper"
-nitrogen --set-scaled /usr/share/backgrounds/archlinux/awesome.png
+nitrogen --set-scaled /usr/share/backgrounds/archlinux/lone.jpg
 print_success "Set wallpaper."
 
 #########################
