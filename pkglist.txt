@@ -22,3 +22,5 @@ archlinux-wallpaper
 ttf-font-awesome
 noto-fonts-emoji
 starship
+htop
+xterm
