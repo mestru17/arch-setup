@@ -24,3 +24,4 @@ noto-fonts-emoji
 starship
 htop
 xterm
+lazygit
