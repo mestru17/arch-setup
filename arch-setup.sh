@@ -111,7 +111,7 @@ install_dwm() {
 	make clean
 
 	# Install logo
-	local icon_dir="$HOME/.icons"
+	local icon_dir="$XDG_DATA_HOME/icons"
 	mkdir -p "$icon_dir"
 	cp dwm.png "$icon_dir/dwm.png"
 }
@@ -124,6 +124,7 @@ install dwm
 # Install AUR packages #
 ########################
 print_header "Installing AUR packages"
+# TODO: Find a way to prevent re-installing AUR packages.
 yay -S --needed - < pkglist_aur.txt
 
 ########################
@@ -134,6 +135,23 @@ print_header "Configuring programs"
 # TODO: Some directories might not exist when copying like this. Need to find a better way to do this.
 sudo cp -r root/* /
 print_success "Installed system level config files."
+
+# Track dotfiles with git
+# TODO: Pull dotfiles and source .bashrc.
+
+dotfiles_dir="$HOME/.dotfiles"
+if [ -d "$dotfiles_dir" ]; then
+	print_warning "Dotfile tracking with git is already set up via $dotfiles_dir -- skipping."
+else
+	git init --bare "$dotfiles_dir"
+	# TODO: Remove the following function when the TODO above has been resolved and .bashrc gets sourced.
+	config() {
+		/usr/bin/git --git-dir="$dotfiles_dir/" --work-tree="$HOME" $@
+	}
+	config config status.showUntrackedFiles no
+	print_success "Set up tracking of dotfiles via bare git repository in $dotfiles_dir."
+fi
+
 
 ###################
 # Enable services #
