@@ -124,8 +124,15 @@ install dwm
 # Install AUR packages #
 ########################
 print_header "Installing AUR packages"
-# TODO: Find a way to prevent re-installing AUR packages.
-yay -S --needed - < pkglist_aur.txt
+readarray -t aur_pkgs < pkglist_aur.txt
+for pkg in "${aur_pkgs[@]}"; do
+	if pacman -Q "$pkg" &> /dev/null; then
+		print_warning "Warning: $pkg is already installed -- skipping."
+	else
+		yay -S "$pkg"
+		print_success "Installed $pkg."
+	fi
+done
 
 ########################
 # Install config files #
@@ -136,7 +143,7 @@ print_header "Configuring system and programs"
 sudo cp -r root/* /
 print_success "Installed system level config files."
 
-# Track dotfiles with git
+# Install dotfiles
 curl -Ls https://raw.githubusercontent.com/mestru17/arch-dotfiles/master/install_dotfiles | bash
 print_success "Installed dotfiles."
 
