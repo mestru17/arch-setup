@@ -144,8 +144,7 @@ sudo cp -r root/* /
 print_success "Installed system level config files."
 
 # Install dotfiles
-curl -Ls https://raw.githubusercontent.com/mestru17/arch-dotfiles/master/install_dotfiles | bash
-print_success "Installed dotfiles."
+curl -H "Cache-Control: no-cache" -Ls https://raw.githubusercontent.com/mestru17/arch-dotfiles/master/install_dotfiles | bash
 
 ###################
 # Enable services #
