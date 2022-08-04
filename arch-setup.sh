@@ -111,7 +111,7 @@ install_dwm() {
 	make clean
 
 	# Install logo
-	local icon_dir="$XDG_DATA_HOME/icons"
+	local icon_dir="$HOME/.local/share/icons"
 	mkdir -p "$icon_dir"
 	cp dwm.png "$icon_dir/dwm.png"
 }
