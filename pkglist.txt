@@ -25,3 +25,4 @@ starship
 htop
 xterm
 lazygit
+xclip
