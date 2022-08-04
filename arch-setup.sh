@@ -114,11 +114,17 @@ install_dwm() {
 	cp dwm.png "$icon_dir/dwm.png"
 }
 
-# TODO: Add dmenu install that uses my own build
+install_dmenu() {
+	rm -rf dmenu-flexipatch
+	git clone https://github.com/mestru17/dmenu-flexipatch.git
+	cd dmenu-flexipatch
+	sudo make clean install
+}
 
 print_header "Installing other packages"
 install yay
 install dwm
+install dmenu
 
 ########################
 # Install AUR packages #

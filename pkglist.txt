@@ -15,7 +15,6 @@ lightdm
 lightdm-gtk-greeter
 alacritty
 picom
-dmenu
 nitrogen
 pcmanfm
 archlinux-wallpaper
