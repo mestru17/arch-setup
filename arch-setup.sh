@@ -114,6 +114,8 @@ install_dwm() {
 	cp dwm.png "$icon_dir/dwm.png"
 }
 
+# TODO: Add dmenu install that uses my own build
+
 print_header "Installing other packages"
 install yay
 install dwm
