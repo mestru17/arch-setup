@@ -103,12 +103,10 @@ install_yay() {
 }
 
 install_dwm() {
-	# TODO: Use my own config instead. This default one can't even launch a terminal because it depends on st.
 	rm -rf dwm
-	git clone git://git.suckless.org/dwm
+	git clone https://github.com/mestru17/dwm.git
 	cd dwm
 	sudo make clean install
-	make clean
 
 	# Install logo
 	local icon_dir="$HOME/.local/share/icons"
