@@ -124,7 +124,7 @@ install dwm
 # Install AUR packages #
 ########################
 print_header "Installing AUR packages"
-readarray -t aur_pkgs < pkglist_aur.txt
+readarray -t aur_pkgs < "pkglist_aur.txt"
 for pkg in "${aur_pkgs[@]}"; do
 	if pacman -Q "$pkg" &> /dev/null; then
 		print_warning "Warning: $pkg is already installed -- skipping."
