@@ -147,7 +147,7 @@ done
 ########################
 print_header "Configuring system and programs"
 
-# TODO: Some directories might not exist when copying like this. Need to find a better way to do this.
+# Install system level config files
 sudo cp -r root/* /
 print_success "Installed system level config files."
 
