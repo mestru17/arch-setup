@@ -109,6 +109,7 @@ install_dwm() {
 	git clone https://github.com/mestru17/dwm-flexipatch.git
 	cd dwm-flexipatch
 	sudo make clean install
+	make clean
 
 	# Install logo
 	local icon_dir="$HOME/.local/share/icons"
@@ -121,6 +122,7 @@ install_dmenu() {
 	git clone https://github.com/mestru17/dmenu-flexipatch.git
 	cd dmenu-flexipatch
 	sudo make clean install
+	make clean
 }
 
 print_header "Installing other packages"
