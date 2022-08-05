@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script is a utility script not intended for normal use. Its sole purpose
+# is to update the list of installation files that the arch-setup script uses
+# for its safety check.
+readarray -t files < <(fd -t f)
+output_lines=""
+output_lines+="INSTALLATION_FILES=(\n"
+for file in ${files[@]}; do
+	output_lines+="\t\"\$PWD/${file:2}\"\n"
+done
+output_lines+=")"
+
+echo -e "$output_lines"
+echo -e "$output_lines" | xclip
+echo "Copied to clipboard."

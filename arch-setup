@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-# Exit if running as root
-if [[ $EUID < 1 ]]; then
-	echo "Error: Don't run $0 as root. Instead, run it as a user with sudo privileges."
-	exit 1
-fi
-
 ################
 # Define utils #
 ################
@@ -64,15 +58,49 @@ confirm() {
 	[[ $REPLY =~ ^[Yy]$ ]]
 }
 
-########################
-# Print driver warning #
-########################
+#################
+# Safety checks #
+#################
+print_header "Performing safety checks"
+
+# Exit if running as root
+if [[ $EUID < 1 ]]; then
+	print_error "Error: Don't run $0 as root. Instead, run it as a user with sudo privileges."
+	exit 1
+fi
+print_success "Not running as root."
+
+# Exit if installation files are missing from working directory (use genfilelist to get updated list)
+INSTALLATION_FILES=(
+	"$PWD/arch-setup"
+	"$PWD/pkglist.txt"
+	"$PWD/pkglist_aur.txt"
+	"$PWD/root/etc/lightdm/lightdm-display-setup.sh"
+	"$PWD/root/etc/lightdm/lightdm-gtk-greeter.conf"
+	"$PWD/root/etc/lightdm/lightdm.conf"
+	"$PWD/root/usr/share/xsessions/dwm.desktop"
+)
+
+for file in ${INSTALLATION_FILES[@]}; do
+	if [ ! -f "$file" ]; then
+		print_error "Error: Could not find file $file. Please make sure that you cloned the git repository and are running the script from within the cloned directory."
+		exit 1
+	fi
+done
+print_success "All installation files are in working directory."
+
+# Confirm that drivers are installed
 print_warning "Warning: This script requires that you have already installed Xorg drivers for your hardware."
 if ! confirm "Have you installed the Xorg drivers?"; then
 	print_underline "Please install the Xorg driver(s) before running this script again."
 	print_underline "Visit https://wiki.archlinux.org/title/Xorg for more information."
 	exit
 fi
+print_success "Xorg drivers are installed according to user."
+
+# Print success message
+print_bold_success "Safety checks passed."
+print_note "The safety checks are not a guarantee that everything will work. For example, you might want to edit some of the installation files to your own liking. This is intended and as such, this script does nothing to prevent it, but it can also produce problems as the script was not tested with those changes to the installation files."
 
 #########################
 # Set up error handling #
