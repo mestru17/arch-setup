@@ -104,8 +104,8 @@ install_yay() {
 
 install_dwm() {
 	rm -rf dwm
-	git clone https://github.com/mestru17/dwm.git
-	cd dwm
+	git clone https://github.com/mestru17/dwm-flexipatch.git
+	cd dwm-flexipatch
 	sudo make clean install
 
 	# Install logo
