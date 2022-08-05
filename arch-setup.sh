@@ -84,6 +84,7 @@ sudo pacman -S --needed - < pkglist.txt
 ##########################
 # Install other programs #
 ##########################
+WORKING_DIR="$PWD"
 install() {
 	local command=$1
 	if [ -x "$(command -v $command)" ]; then
@@ -92,6 +93,7 @@ install() {
 		cd "$HOME"
 		install_$command
 		print_success "Installed $command."
+		cd "$WORKING_DIR"
 	fi
 }
 
@@ -130,7 +132,7 @@ install dmenu
 # Install AUR packages #
 ########################
 print_header "Installing AUR packages"
-readarray -t aur_pkgs < "pkglist_aur.txt"
+readarray -t aur_pkgs < pkglist_aur.txt
 for pkg in "${aur_pkgs[@]}"; do
 	if pacman -Q "$pkg" &> /dev/null; then
 		print_warning "Warning: $pkg is already installed -- skipping."
