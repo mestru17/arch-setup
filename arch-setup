@@ -27,6 +27,16 @@ print_success() {
 	printf "${green}✔ %s${reset}\n" "$@"
 }
 
+print_bold_success() {
+	printf "\n${bold}${green}✔ %s${reset}\n" "$@"
+}
+
+print_separated_success() {
+	printf "\n${green}--------------------------------------------------------------------------------${reset}\n"
+	printf "${bold}${green}✔ %s${reset}\n" "$@"
+	printf "${green}--------------------------------------------------------------------------------${reset}\n"
+}
+
 print_warning() {
 	printf "${yellow} %s${reset}\n" "$@"
 }
@@ -80,6 +90,7 @@ trap "on_error_exit $LINENO" ERR
 ####################
 print_header "Installing standard packages"
 sudo pacman -S --needed - < pkglist.txt
+print_bold_success "Standard packages installed."
 
 ##########################
 # Install other programs #
@@ -129,6 +140,7 @@ print_header "Installing other packages"
 install yay
 install dwm
 install dmenu
+print_bold_success "Other packages installed."
 
 ########################
 # Install AUR packages #
@@ -143,6 +155,7 @@ for pkg in "${aur_pkgs[@]}"; do
 		print_success "Installed $pkg."
 	fi
 done
+print_bold_success "AUR packages installed."
 
 ########################
 # Install config files #
@@ -155,6 +168,9 @@ print_success "Installed system level config files."
 
 # Install dotfiles
 curl -H "Cache-Control: no-cache" -Ls https://raw.githubusercontent.com/mestru17/arch-dotfiles/master/install_dotfiles | bash
+
+# Print success
+print_bold_success "System and programs configured."
 
 ###################
 # Enable services #
@@ -171,9 +187,10 @@ enable_service() {
 
 print_header "Enabling services"
 enable_service lightdm.service
+print_bold_success "Services enabled."
 
 #########################
 # Print success message #
 #########################
 echo
-print_success "Successfully ran $0."
+print_separated_success "Successfully ran $0. Some changes may need a reboot to take effect."
