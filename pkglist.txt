@@ -25,3 +25,4 @@ htop
 xterm
 lazygit
 xclip
+alsa-utils

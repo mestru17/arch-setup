@@ -226,6 +226,12 @@ print_header "Enabling services"
 enable_service lightdm.service
 print_bold_success "Services enabled."
 
+################
+# Other things #
+################
+# Unmute master volume and set default level
+amixer sset Master unmute 20%
+
 #########################
 # Print success message #
 #########################
