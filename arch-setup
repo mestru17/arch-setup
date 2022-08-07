@@ -119,7 +119,7 @@ trap 'on_error_exit "$LINENO"' ERR
 print_header "Installing standard packages"
 
 # shellcheck disable=SC2024
-sudo pacman -S --needed - < pkglist.txt
+sudo pacman -S --needed - <pkglist.txt
 
 print_bold_success "Standard packages installed."
 
@@ -186,9 +186,9 @@ print_bold_success "Other packages installed."
 # Install AUR packages #
 ########################
 print_header "Installing AUR packages"
-readarray -t aur_pkgs < pkglist_aur.txt
+readarray -t aur_pkgs <pkglist_aur.txt
 for pkg in "${aur_pkgs[@]}"; do
-	if pacman -Q "$pkg" &> /dev/null; then
+	if pacman -Q "$pkg" &>/dev/null; then
 		print_warning "Warning: $pkg is already installed -- skipping."
 	else
 		yay -S "$pkg"
@@ -217,7 +217,7 @@ print_bold_success "System and programs configured."
 ###################
 enable_service() {
 	local service=$1
-	if systemctl is-enabled "$service" 1> /dev/null; then
+	if systemctl is-enabled "$service" 1>/dev/null; then
 		print_warning "Warning: $service is already enabled -- skipping."
 	else
 		sudo systemctl enable "$service"
