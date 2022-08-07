@@ -5,7 +5,7 @@
 readarray -t files < <(fd -t f)
 output_lines=""
 output_lines+="INSTALLATION_FILES=(\n"
-for file in ${files[@]}; do
+for file in "${files[@]}"; do
 	output_lines+="\t\"\$PWD/${file:2}\"\n"
 done
 output_lines+=")"
