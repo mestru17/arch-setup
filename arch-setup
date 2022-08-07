@@ -164,10 +164,19 @@ install_dmenu() {
 	make clean
 }
 
+install_slstatus() {
+	rm -rf slstatus
+	git clone https://github.com/mestru17/slstatus.git
+	cd slstatus
+	sudo make clean install
+	make clean
+}
+
 print_header "Installing other packages"
 install yay
 install dwm
 install dmenu
+install slstatus
 print_bold_success "Other packages installed."
 
 ########################
