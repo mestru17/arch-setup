@@ -26,9 +26,9 @@ print_bold_success() {
 }
 
 print_separated_success() {
-	printf "\n${green}--------------------------------------------------------------------------------${reset}\n"
+	echo -e "\n${green}--------------------------------------------------------------------------------${reset}"
 	printf "${bold}${green}✔ %s${reset}\n" "$@"
-	printf "${green}--------------------------------------------------------------------------------${reset}\n"
+	echo -e "${green}--------------------------------------------------------------------------------${reset}"
 }
 
 print_warning() {
@@ -52,7 +52,7 @@ print_note() {
 }
 
 confirm() {
-	printf "\n${bold}$@${reset}"
+	printf "\n${bold}%s${reset}" "$@"
 	read -p " (y/n) " -n 1 -r
 	echo # move to a new line after read
 	[[ $REPLY =~ ^[Yy]$ ]]
@@ -64,7 +64,7 @@ confirm() {
 print_header "Performing safety checks"
 
 # Exit if running as root
-if [[ $EUID < 1 ]]; then
+if [[ $EUID -lt 1 ]]; then
 	print_error "Error: Don't run $0 as root. Instead, run it as a user with sudo privileges."
 	exit 1
 fi
@@ -81,7 +81,7 @@ INSTALLATION_FILES=(
 	"$PWD/root/usr/share/xsessions/dwm.desktop"
 )
 
-for file in ${INSTALLATION_FILES[@]}; do
+for file in "${INSTALLATION_FILES[@]}"; do
 	if [ ! -f "$file" ]; then
 		print_error "Error: Could not find file $file. Please make sure that you cloned the git repository and are running the script from within the cloned directory."
 		exit 1
@@ -111,13 +111,16 @@ on_error_exit() {
 }
 
 set -eEo pipefail
-trap "on_error_exit $LINENO" ERR
+trap 'on_error_exit "$LINENO"' ERR
 
 ####################
 # Install packages #
 ####################
 print_header "Installing standard packages"
+
+# shellcheck disable=SC2024
 sudo pacman -S --needed - < pkglist.txt
+
 print_bold_success "Standard packages installed."
 
 ##########################
@@ -126,11 +129,11 @@ print_bold_success "Standard packages installed."
 WORKING_DIR="$PWD"
 install() {
 	local command=$1
-	if [ -x "$(command -v $command)" ]; then
+	if [ -x "$(command -v "$command")" ]; then
 		print_warning "Warning: $command is already installed -- skipping."
 	else
 		cd "$HOME"
-		install_$command
+		install_"$command"
 		print_success "Installed $command."
 		cd "$WORKING_DIR"
 	fi
