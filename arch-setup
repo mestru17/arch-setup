@@ -209,6 +209,10 @@ print_success "Installed system level config files."
 # Install dotfiles
 curl -H "Cache-Control: no-cache" -Ls https://raw.githubusercontent.com/mestru17/arch-dotfiles/master/install_dotfiles | bash
 
+# Unmute master volume and set default level
+amixer sset Master unmute 20% &>/dev/null
+print_success "Unmuted volume and set it to 20%."
+
 # Print success
 print_bold_success "System and programs configured."
 
@@ -228,12 +232,6 @@ enable_service() {
 print_header "Enabling services"
 enable_service lightdm.service
 print_bold_success "Services enabled."
-
-################
-# Other things #
-################
-# Unmute master volume and set default level
-amixer sset Master unmute 20%
 
 #########################
 # Print success message #
