@@ -147,7 +147,7 @@ install_yay() {
 }
 
 install_dwm() {
-	rm -rf dwm
+	rm -rf dwm-flexipatch
 	git clone https://github.com/mestru17/dwm-flexipatch.git
 	cd dwm-flexipatch
 	sudo make clean install
@@ -167,10 +167,10 @@ install_dmenu() {
 	make clean
 }
 
-install_slstatus() {
-	rm -rf slstatus
-	git clone https://github.com/mestru17/slstatus.git
-	cd slstatus
+install_dwmblocks() {
+	rm -rf dwmblocks
+	git clone https://github.com/mestru17/dwmblocks.git
+	cd dwmblocks
 	sudo make clean install
 	make clean
 }
@@ -179,7 +179,7 @@ print_header "Installing other packages"
 install yay
 install dwm
 install dmenu
-install slstatus
+install dwmblocks
 print_bold_success "Other packages installed."
 
 ########################
