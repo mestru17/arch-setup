@@ -175,11 +175,17 @@ install_dwmblocks() {
 	make clean
 }
 
+# Also installs cargo and rust toolchain
+install_rustup() {
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+}
+
 print_header "Installing other packages"
 install yay
 install dwm
 install dmenu
 install dwmblocks
+install rustup
 print_bold_success "Other packages installed."
 
 ########################
