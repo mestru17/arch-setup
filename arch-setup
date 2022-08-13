@@ -180,12 +180,19 @@ install_rustup() {
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 }
 
+install_doom() {
+	rm -rf .emacs.d
+	git clone --depth 1 https://github.com/doomemacs/doomemacs "$HOME/.emacs.d"
+	"$HOME"/.emacs.d/bin/doom install
+}
+
 print_header "Installing other packages"
 install yay
 install dwm
 install dmenu
 install dwmblocks
 install rustup
+install doom
 print_bold_success "Other packages installed."
 
 ########################
@@ -214,6 +221,10 @@ print_success "Installed system level config files."
 
 # Install dotfiles
 curl -H "Cache-Control: no-cache" -Ls https://raw.githubusercontent.com/mestru17/arch-dotfiles/master/install_dotfiles | bash
+
+# Sync doom emacs config
+"$HOME"/.emacs.d/bin/doom sync
+print_success "Synchronized doom emacs config."
 
 # Unmute master volume and set default level
 amixer sset Master unmute 20% &>/dev/null

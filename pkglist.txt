@@ -26,3 +26,4 @@ xterm
 lazygit
 xclip
 alsa-utils
+emacs
