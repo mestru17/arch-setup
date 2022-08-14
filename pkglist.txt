@@ -28,3 +28,4 @@ xclip
 alsa-utils
 emacs
 rust-analyzer
+pandoc
