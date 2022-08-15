@@ -4,6 +4,10 @@
 Post installation script for Arch Linux. This script installs all of the
 software that I like to use and configures it to my liking.
 
+* Table of Contents :toc:
+- [[#prerequisites][Prerequisites]]
+- [[#installation][Installation]]
+
 * Prerequisites
 There are three prerequisites to running this scripts:
 1. You must have installed Arch Linux already. See the [[https://wiki.archlinux.org/title/Installation_guide][Arch Installation Guide]].
